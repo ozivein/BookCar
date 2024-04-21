@@ -1,0 +1,90 @@
+﻿@model List<ResultContactDto>
+@{
+    ViewData["Title"] = "Index";
+    Layout = "~/Areas/Admin/Views/AdminLayout/Index.cshtml";
+
+    int count = 0;
+}
+<link href="~/Admin/plugins/datatables/dataTables.bootstrap4.css" rel="stylesheet" type="text/css" />
+<link href="~/Admin/plugins/datatables/responsive.bootstrap4.css" rel="stylesheet" type="text/css" />
+<link href="~/Admin/plugins/datatables/buttons.bootstrap4.css" rel="stylesheet" type="text/css" />
+<link href="~/Admin/plugins/datatables/select.bootstrap4.css" rel="stylesheet" type="text/css" />
+
+<div class="page-content">
+    <div class="container-fluid">
+
+        <!-- start page title -->
+        <div class="row">
+            <div class="col-xl-12">
+                <div class="card">
+                    <div class="card-body">
+                        <h4 class="card-title">Gelen Mesajlar</h4>
+                        <p class="card-subtitle mb-4">
+                            Ana Sayfa üzerinden kullanıcıların iletişim kısmı aracalığıyla gönderdikleri mesajların listesinin bulunduğu sayfadır ilgili satıra tıklayıp mesaj detayını görebilirsiniz.
+                        </p>
+                        <div class="table-responsive">
+                            <table id="basic-datatable" class="table dt-responsive nowrap">
+                                <thead>
+                                    <tr>
+                                        <th>#</th>
+                                        <th>Ad-Soyad</th>
+                                        <th>Email</th>
+                                        <th>Konu</th>
+                                        <th>Mesaj</th>
+                                        <th>Gönderme Tarihi</th>
+                                    </tr>
+                                </thead>
+
+
+                                <tbody>
+                                    @if (Model.Count > 0)
+                                    {
+                                        foreach (var item in Model)
+                                        {
+                                            count++;
+                                            <tr>
+                                                <th>@count</th>
+                                                <td>@item.Name</td>
+                                                <td>@item.Email</td>
+                                                <td>@item.Subject</td>
+                                                <td>@item.Message</td>
+                                                <td>@item.SenDate.ToShortDateString()</td>
+                                            </tr>
+                                        }
+                                    }
+
+                                </tbody>
+                            </table>
+
+                        </div>
+
+                    </div>
+                    <!-- end card-body-->
+                </div>
+                <!-- end card -->
+
+            </div>
+        </div>
+    </div> <!-- container-fluid -->
+</div>
+<!-- third party js -->
+<script src="~/Admin/plugins/datatables/jquery.dataTables.min.js"></script>
+<script src="~/Admin/plugins/datatables/dataTables.bootstrap4.js"></script>
+<script src="~/Admin/plugins/datatables/dataTables.responsive.min.js"></script>
+<script src="~/Admin/plugins/datatables/responsive.bootstrap4.min.js"></script>
+<script src="~/Admin/plugins/datatables/dataTables.buttons.min.js"></script>
+<script src="~/Admin/plugins/datatables/buttons.bootstrap4.min.js"></script>
+<script src="~/Admin/plugins/datatables/buttons.html5.min.js"></script>
+<script src="~/Admin/plugins/datatables/buttons.flash.min.js"></script>
+<script src="~/Admin/plugins/datatables/buttons.print.min.js"></script>
+<script src="~/Admin/plugins/datatables/dataTables.keyTable.min.js"></script>
+<script src="~/Admin/plugins/datatables/dataTables.select.min.js"></script>
+<script src="~/Admin/plugins/datatables/pdfmake.min.js"></script>
+<script src="~/Admin/plugins/datatables/vfs_fonts.js"></script>
+<!-- third party js ends -->
+<!-- Datatables init -->
+<script src="~/Admin/vertical/assets/pages/datatables-demo.js"></script>
+
+<script>
+    $().DataTable();
+</script>

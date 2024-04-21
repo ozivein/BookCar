@@ -1,0 +1,73 @@
+﻿@model List<ResultTestimonialDto>
+@{
+    ViewData["Title"] = "Index";
+    Layout = "~/Areas/Admin/Views/AdminLayout/Index.cshtml";
+
+    int count = 0;
+}
+<div class="page-content">
+    <div class="container-fluid">
+
+        <!-- start page title -->
+        <div class="row">
+            <div class="col-xl-12">
+                <div class="card">
+                    <div class="card-body">
+                        <h4 class="card-title">Referans listesi</h4>
+                        <p class="card-subtitle mb-4">
+                            Referanslar ile ilgili ekleme, silme güncelleme, arama ve listeleme gibi işlemleri bu sayfadan geçerkleştirebilirsiniz
+                        </p>
+                        <div class="table-responsive">
+                            <a asp-controller="AdminTestimonial" asp-action="CreateTestimonial" class="btn btn-outline-success">Yeni Referans Girişi</a>
+                            <table class="table mb-0">
+                                <thead>
+                                    <tr>
+                                        <th>#</th>
+                                        <th>Fotoğraf</th>
+                                        <th>Başlık</th>
+                                        <th>Açıklama</th>
+                                        <th>Yorum</th>
+                                        <th>Sil</th>
+                                        <th>Güncelle</th>
+                                    </tr>
+                                </thead>
+                                @if (Model.Count > 0)
+                                {
+                                    <tbody>
+
+                                        @foreach (var item in Model)
+                                        {
+                                            count++;
+                                            <tr>
+                                                <th scope="row">@count</th>
+                                                <td><img src="@item.ImageUrl" width="50" height="50" /></td>
+                                                <td>@item.Title</td>
+                                                <td>@item.Name</td>
+                                                <td>@item.Comment</td>
+                                                <td><a asp-controller="AdminTestimonial" asp-action="Delete" asp-route-id="@item.DataProtect" class="btn btn-outline-danger">Sil</a></td>
+                                                <td><a asp-controller="AdminTestimonial" asp-action="Update" asp-route-id="@item.DataProtect" class="btn btn-outline-warning">Güncelle</a></td>
+                                            </tr>
+                                        }
+                                    </tbody>
+
+                                }
+                                else
+                                {
+                                    <tbody>
+                                        <tr><td colspan="6">Listelenecek Referans Yok</td> </tr>
+                                    </tbody>
+                                }
+                            </table>
+
+                        </div>
+
+                    </div>
+                    <!-- end card-body-->
+                </div>
+                <!-- end card -->
+
+            </div>
+        </div>
+    </div> <!-- container-fluid -->
+</div>
+

@@ -1,0 +1,38 @@
+﻿@model List<ResultBlogDto>
+@{
+    ViewData["Title"] = "Index";
+    Layout = "~/Views/UILayout/Index.cshtml";
+}
+
+<section class="ftco-section">
+    <div class="container">
+        @if (Model.Count > 0)
+        {
+            foreach (var item in Model)
+            {
+                <div class="row d-flex justify-content-center">
+                    <div class="col-md-12 text-center d-flex ftco-animate">
+                        <div class="blog-entry justify-content-end mb-md-5">
+                            <a asp-controller="Blog" asp-action="BlogDetail" asp-route-id="@item.DataProtect" class="block-20 img" style="background-image: url(@item.CoverImageUrl);">
+                            </a>
+                            <div class="text px-md-5 pt-4">
+                                <div class="meta mb-3">
+                                    <div><a asp-controller="Blog" asp-action="BlogDetail" asp-route-id="@item.DataProtect">@item.CreatedDate.ToShortDateString()</a></div>
+                                    <div><a asp-controller="Blog" asp-action="BlogDetail" asp-route-id="@item.DataProtect">@item.AuthorName</a></div>
+                                    <div><a asp-controller="Blog" asp-action="BlogDetail" asp-route-id="@item.DataProtect" class="meta-chat"><span class="icon-chat"></span> 0</a></div>
+                                </div>
+                                <h3 class="heading mt-2"><a asp-controller="Blog" asp-action="BlogDetail" asp-route-id="@item.DataProtect">@item.Title</a></h3>
+                                <p>@item.Description</p>
+                                <p><a asp-controller="Blog" asp-action="BlogDetail" asp-route-id="@item.DataProtect" class="btn btn-primary">Devamını Oku <span class="icon-long-arrow-right"></span></a></p>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+            }
+
+        }
+        
+    </div>
+</section>
+

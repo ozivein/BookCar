@@ -1,0 +1,82 @@
+﻿@model List<ResultCarDto>
+@{
+    ViewData["Title"] = "Index";
+    Layout = "~/Areas/Admin/Views/AdminLayout/Index.cshtml";
+
+    int count = 0;
+}
+
+<div class="page-content">
+    <div class="container-fluid">
+
+        <!-- start page title -->
+        <div class="row">
+            <div class="col-xl-12">
+                <div class="card">
+                    <div class="card-body">
+                        <h4 class="card-title">Araba Listesi</h4>
+                        <p class="card-subtitle mb-4">
+                            Arabalarla ilgili ekleme, silme güncelleme, arama ve listeleme gibi işlemleri bu sayfadan geçerkleştirebilirsiniz.
+                        </p>
+                        <div class="table-responsive">
+                            <a asp-controller="AdminCar" asp-action="CreateCar" class="btn btn-outline-success">Yeni Araç</a>
+                            <table class="table mb-0">
+                                <thead>
+                                    <tr>
+                                        <th>#</th>
+                                        <th>Marka</th>
+                                        <th>Model</th>
+                                        <th>Vites Türü</th>
+                                        <th>Km</th>
+                                        <th>Sil</th>
+                                        <th>Güncelle</th>
+                                        <th>Detaylar</th>
+                                        <th>Atama</th>
+                                        <th>Sitede Gör</th>
+                                        <th>Fiyat Bilgileri</th>
+                                    </tr>
+                                </thead>
+                                @if (Model.Count > 0)
+                                {
+                                    <tbody>
+
+                                        @foreach (var item in Model)
+                                        {
+                                            count++;
+                                            <tr>
+                                                <th scope="row">@count</th>
+                                                <td>@item.BrandName</td>
+                                                <td>@item.Model</td>
+                                                <td>@item.Transmission</td>
+                                                <td>@item.Km</td>
+                                                <td><a asp-controller="AdminCar" asp-action="Delete" asp-route-id="@item.DataProtect" class="btn btn-outline-danger">Sil</a></td>
+                                                <td><a asp-controller="AdminCar" asp-action="Update" asp-route-id="@item.DataProtect" class="btn btn-outline-warning">Güncelle</a></td>
+                                                <td><a asp-controller="AdminCarFeatureDetail" asp-action="Index" asp-route-id="@item.DataProtect" class="btn btn-outline-primary">Detaya Git</a></td>
+                                                <td><a asp-controller="AdminCarFeatureDetail" asp-action="CreateCarFeatureByCarId" asp-route-id="@item.DataProtect" class="btn btn-outline-info">Özellik Ata</a></td>
+                                                <td><a asp-controller="CarDetails" asp-action="CarDetail" asp-route-id="@item.DataProtect" class="btn btn-outline-info">Sitede Gör</a></td>
+                                                <td><a asp-controller="CarDetails" asp-action="CarDetail" asp-route-id="@item.DataProtect" class="btn btn-outline-secondary">Fiyat Bilgileri</a></td>
+                                            </tr>
+                                        }
+                                    </tbody>
+
+                                }
+                                else
+                                {
+                                    <tbody>
+                                        <tr><td colspan="10">Listelenecek Araç Yok</td> </tr>
+                                    </tbody>
+                                }
+                            </table>
+
+                        </div>
+
+                    </div>
+                    <!-- end card-body-->
+                </div>
+                <!-- end card -->
+
+            </div>
+        </div>
+    </div> <!-- container-fluid -->
+</div>
+

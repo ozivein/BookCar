@@ -1,0 +1,13 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>net8.0</TargetFramework>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <Nullable>disable</Nullable>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <EditorConfigFiles Remove="C:\Users\glb90090219\Documents\Tfs\serhatkaratasli\IdentityUserProject\UdemyCarBook\Frontends\UdemyCarBook.Dto\Dtos\TagCloudDtos\.editorconfig" />
+  </ItemGroup>
+
+</Project>

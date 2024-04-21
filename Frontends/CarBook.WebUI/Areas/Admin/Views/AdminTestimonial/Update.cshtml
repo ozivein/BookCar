@@ -1,0 +1,53 @@
+﻿@model UpdateTestimonialDto
+@{
+    ViewData["Title"] = "UpdateTestimonial";
+    Layout = "~/Areas/Admin/Views/AdminLayout/Index.cshtml";
+}
+<div class="page-content">
+    <div class="container-fluid">
+
+        <!-- start page title -->
+        <div class="row">
+            <div class="col-xl-12">
+
+                <div class="card">
+                    <div class="card-body">
+
+                        <h4 class="card-title">Referans Güncelleme</h4>
+                        <p class="card-subtitle mb-4">Referanslar İle ilgili temel bilgileri eksiksiz doldurmanız önemlidir. Veri güncellemesinden sonra güncelle butonuna tıklayarak işlemi tamamlayabilirsiniz</p>
+
+                        <form asp-controller="AdminTestimonial" asp-action="Update" method="post">
+                            <input type="hidden" asp-for="@Model.TestimonialId" />
+                            <div class="form-group">
+                                <label asp-for="@Model.Title">Başlık</label>
+                                <input type="text" class="form-control" asp-for="@Model.Title" placeholder="Başlık Yazınız" />
+                                <small></small>
+                            </div>
+                            <div class="form-group">
+                                <label asp-for="@Model.Name">Referansın Adı</label>
+                                <input type="text" class="form-control" asp-for="@Model.Name" placeholder="Referansın Adını Yazınız" />
+                                <small></small>
+                            </div>
+                            <div class="form-group">
+                                <label asp-for="@Model.Comment">Yorumu</label>
+                                <textarea class="form-control" cols="30" rows="10" asp-for="@Model.Comment" placeholder="Yorum Giriniz"></textarea>
+                                <small></small>
+                            </div>
+                            <div class="form-group">
+                                <label asp-for="@Model.ImageUrl">Resim</label>
+                                <input type="text" class="form-control" asp-for="@Model.ImageUrl" placeholder="Fotoğraf linki Yazınız" />
+                                <small></small>
+                            </div>
+                            <button type="submit" class="btn btn-primary waves-effect waves-light">Güncelle</button>
+                        </form>
+
+                    </div> <!-- end card-body-->
+                </div>
+
+            </div>
+            <!-- end card-body-->
+        </div>
+        <!-- end card -->
+
+    </div>
+</div>

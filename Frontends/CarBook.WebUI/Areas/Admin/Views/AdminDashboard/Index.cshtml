@@ -1,0 +1,170 @@
+﻿
+@{
+    ViewData["Title"] = "Index";
+    Layout = "~/Areas/Admin/Views/AdminLayout/Index.cshtml";
+}
+
+<script src="~/js/microsoft-signalr/signalr.min.js"></script>
+<script src="~/Admin/vertical/assets/js/jquery.min.js"></script>
+<script type="text/javascript">
+
+    $(document).ready(() => {
+        var connection = new signalR.HubConnectionBuilder().withUrl("https://localhost:7093/MyHub").build();
+
+        connection.start().then(() => {
+            console.log("Bağlantı Sağlandı");
+            setInterval(() => {
+                connection.invoke("SendStatisticCarCount");
+                connection.invoke("SendStatisticLokasyonCount");
+                connection.invoke("SendStatisticBrandCount");
+                connection.invoke("SendStatisticCarCountByTransmissonAuto");
+
+            }, 1000);
+
+        }).catch((err) => {
+            console.log(err);
+        });
+
+        connection.on("ReceiveCarCount", (value) => {
+
+            $("#carCount").html(`
+                        <div class="mb-4">
+                             <span class="badge badge-soft-light float-right">Toplam Araç</span>
+                            <h5 class="card-title mb-0 text-white">Araç Sayısı</h5>
+                        </div>
+                        <div class="row d-flex align-items-center mb-4">
+                            <div class="col-8">
+                                <h2 class="d-flex align-items-center mb-0 text-white">
+                                    ${value}
+                                </h2>
+                            </div>
+                            <div class="col-4 text-right">
+                                <span class="text-white-${value}">${value}% <i class="mdi mdi-arrow-up"></i></span>
+                            </div>
+                        </div>
+
+                        <div class="progress badge-soft-light shadow-sm" style="height: 5px;">
+                            <div class="progress-bar bg-light" role="progressbar" style="width: 38%;"></div>
+                        </div>`)
+        });
+        connection.on("ReceiveLokasyonCount", (value) => {
+            $("#lokasyonCount").html(`
+                <div class="mb-4">
+                     <span class="badge badge-soft-light float-right">Toplam Lokasyon</span>
+                    <h5 class="card-title mb-0 text-white">Lokasyon Sayısı</h5>
+                </div>
+                <div class="row d-flex align-items-center mb-4">
+                    <div class="col-8">
+                        <h2 class="d-flex align-items-center mb-0 text-white">
+                            ${value}
+                        </h2>
+                    </div>
+                    <div class="col-4 text-right">
+                        <span class="text-white-${value}">${value}% <i class="mdi mdi-arrow-up"></i></span>
+                    </div>
+                </div>
+
+                <div class="progress badge-soft-light shadow-sm" style="height: 5px;">
+                    <div class="progress-bar bg-light" role="progressbar" style="width: 38%;"></div>
+                </div>`)
+        });
+
+
+        connection.on("ReceiveBrandCount", (value) => {
+            $("#brandCount").html(`
+      <div class="mb-4">
+     <span class="badge badge-soft-light float-right">Toplam Marka</span>
+    <h5 class="card-title mb-0 text-white">Marka Sayısı</h5>
+</div>
+<div class="row d-flex align-items-center mb-4">
+    <div class="col-8">
+        <h2 class="d-flex align-items-center mb-0 text-white">
+            ${value}
+        </h2>
+    </div>
+    <div class="col-4 text-right">
+        <span class="text-white-${value}">${value}% <i class="mdi mdi-arrow-up"></i></span>
+    </div>
+</div>
+
+<div class="progress badge-soft-light shadow-sm" style="height: 5px;">
+    <div class="progress-bar bg-light" role="progressbar" style="width: 38%;"></div>
+</div>`)
+        });
+
+        connection.on("ReceiveGetCarCountByTransmissonAuto", (value) => {
+            $("#getCarCountByTransmissonAuto").html(`
+      <div class="mb-4">
+     <span class="badge badge-soft-light float-right">Otomatik Araç</span>
+    <h5 class="card-title mb-0 text-white">Otomatik Araç Sayısı</h5>
+</div>
+<div class="row d-flex align-items-center mb-4">
+    <div class="col-8">
+        <h2 class="d-flex align-items-center mb-0 text-white">
+            ${value}
+        </h2>
+    </div>
+    <div class="col-4 text-right">
+        <span class="text-white-${value}">${value}% <i class="mdi mdi-arrow-up"></i></span>
+    </div>
+</div>
+
+<div class="progress badge-soft-light shadow-sm" style="height: 5px;">
+    <div class="progress-bar bg-light" role="progressbar" style="width: 38%;"></div>
+</div>`)
+        });
+
+    });
+
+</script>
+
+<div class="page-content">
+    <div class="container-fluid">
+
+        <div class="row">
+            <div class="col-md-6 col-xl-3">
+                <div class="card bg-primary border-primary">
+                    <div class="card-body" id="carCount">
+
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-md-6 col-xl-3">
+                <div class="card bg-success border-success">
+                    <div class="card-body" id="lokasyonCount">
+
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-md-6 col-xl-3">
+                <div class="card bg-warning border-warning">
+                    <div class="card-body" id="brandCount">
+
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-md-6 col-xl-3">
+                <div class="card bg-info border-info">
+                    <div class="card-body" id="getCarCountByTransmissonAuto">
+
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="row">
+
+            @await Component.InvokeAsync("_AdminDashboardChart1ComponentPartial")
+            @await Component.InvokeAsync("_AdminDashboardChart2ComponentPartial")
+            @await Component.InvokeAsync("_AdminDashboardChart3ComponentPartial")
+        </div>
+        <div class="row">
+            @await Component.InvokeAsync("_AdminDashboardCarPricingListComponentPartial")
+            @await Component.InvokeAsync("_AdminDashboardBlogListComponentPartial")
+        </div>
+
+    </div>
+</div>

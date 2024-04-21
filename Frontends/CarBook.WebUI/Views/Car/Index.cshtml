@@ -1,0 +1,42 @@
+﻿@model List<ResultCarPricingDto>
+@{
+    ViewData["Title"] = "Index";
+    Layout = "~/Views/UILayout/Index.cshtml";
+}
+
+<section class="ftco-section bg-light">
+    <div class="container">
+        <div class="row">
+            @if (Model.Count > 0)
+            {
+                foreach (var item in Model)
+                {
+                    <div class="col-md-4">
+                        <div class="car-wrap rounded ftco-animate">
+                            <div class="img rounded d-flex align-items-end" style="background-image: url(@item.CoverImageUrl);">
+                            </div>
+                            <div class="text">
+                                <h2 class="mb-0"><a href="car-single.html">@item.CarModel</a></h2>
+                                <div class="d-flex mb-3">
+                                    <span class="cat">@item.BrandName</span>
+                                    <p class="price ml-auto">₺@item.Amaount <span>/@item.PricingName</span></p>
+                                </div>
+                                <p class="d-flex mb-0 d-block">
+                                    <a asp-action="#" asp-controller="#" asp-route-CarId="@item.DataProtect" class="btn btn-primary py-2 mr-1">Hemen Kirala</a>
+                                    <a asp-action="CarDetail" asp-controller="Car" asp-route-id="@item.DataProtect" class="btn btn-secondary py-2 ml-1">Detaylar</a>
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+
+                }
+
+            }
+            else
+            {
+                <div class="alert alert-danger">Arabalar alanına araba eklemesi yapınız</div>
+            }
+        </div>
+    </div>
+</section>
+

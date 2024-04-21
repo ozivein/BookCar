@@ -1,0 +1,73 @@
+﻿@model UpdateCarDto
+@{
+    ViewData["Title"] = "Update";
+    Layout = "~/Areas/Admin/Views/AdminLayout/Index.cshtml";
+}
+
+<div class="page-content">
+    <div class="container-fluid">
+
+        <!-- start page title -->
+        <div class="row">
+            <div class="col-xl-12">
+
+                <div class="card">
+                    <div class="card-body">
+
+                        <h4 class="card-title">Araç Güncelle</h4>
+                        <p class="card-subtitle mb-4">Araç İle ilgili güncelleme işleminde boş alan bırakmamanız önemlidir. Veri güncelleme yaptıktan sonra Güncelle butonuna tıklayarak işlemi tamamlayabilirsiniz</p>
+
+                        <form asp-controller="AdminCar" asp-action="Update" method="post">
+                            <input type="hidden" asp-for="@Model.CarId" />
+                            <div class="form-group">
+                                <label for="exampleInputEmail1">Marka</label>
+                                <select class="form-control" asp-for="@Model.BrandId" asp-items="@ViewBag.BrandSelectValue">
+                                </select>
+                                <small></small>
+                            </div>
+                            <div class="form-group">
+                                <label asp-for="@Model.Model">Model</label>
+                                <input type="text" class="form-control" asp-for="@Model.Model" placeholder="Araç Modeli Yazınız">
+                            </div>
+                            <div class="form-group">
+                                <label asp-for="@Model.Model">Kapak Fotoğrafı</label>
+                                <input type="text" class="form-control" asp-for="@Model.CoverImageUrl" placeholder="Araç Kapak fotoğrafı Seçiniz">
+                            </div>
+                            <div class="form-group">
+                                <label asp-for="@Model.Km">Km</label>
+                                <input type="text" class="form-control" asp-for="@Model.Km" placeholder="Araç Kilometresini Yazınız">
+                            </div>
+                            <div class="form-group">
+                                <label asp-for="@Model.Transmission">Vites Türü</label>
+                                <input type="text" class="form-control" asp-for="@Model.Transmission" placeholder="Araç Vites türünü Yazınız">
+                            </div>
+                            <div class="form-group">
+                                <label asp-for="@Model.Seat">Koltuk Sayısı</label>
+                                <input type="number" class="form-control" asp-for="@Model.Seat" placeholder="Koltuk Sayısı Giriniz">
+                            </div>
+                            <div class="form-group">
+                                <label asp-for="@Model.Luggage">Bağaj Sayısı</label>
+                                <input type="number" class="form-control" asp-for="@Model.Luggage" placeholder="Bagaj sayısı Giriniz">
+                            </div>
+                            <div class="form-group">
+                                <label asp-for="@Model.Fuel">Yakıt Türü</label>
+                                <input type="text" class="form-control" asp-for="@Model.Fuel" placeholder="Yakıt Türü Giriniz">
+                            </div>
+                            <div class="form-group">
+                                <label asp-for="@Model.BigImageUrl">Büyük Kapak Fotoğrafı</label>
+                                <input type="text" class="form-control" asp-for="@Model.BigImageUrl" placeholder="Büyük Araç Fotoğrafı Seçiniz">
+                            </div>
+                            <button type="submit" class="btn btn-primary waves-effect waves-light">Güncelle</button>
+                        </form>
+
+                    </div> <!-- end card-body-->
+                </div>
+
+            </div>
+            <!-- end card-body-->
+        </div>
+        <!-- end card -->
+
+    </div>
+</div>
+

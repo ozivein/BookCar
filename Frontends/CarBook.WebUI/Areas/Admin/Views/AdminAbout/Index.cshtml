@@ -1,0 +1,71 @@
+﻿@model List<ResultAboutDto>
+@{
+    ViewData["Title"] = "Index";
+    Layout = "~/Areas/Admin/Views/AdminLayout/Index.cshtml";
+
+    int count = 0;
+}
+<div class="page-content">
+    <div class="container-fluid">
+
+        <!-- start page title -->
+        <div class="row">
+            <div class="col-xl-12">
+                <div class="card">
+                    <div class="card-body">
+                        <h4 class="card-title">Hakkımızda listesi</h4>
+                        <p class="card-subtitle mb-4">
+                            Hakkımızda ile ilgili ekleme, silme güncelleme, arama ve listeleme gibi işlemleri bu sayfadan geçerkleştirebilirsiniz. Tema bütünlüğü için sadece <b>1</b> adet Hakkımızda girişi yapınız  öncesinde kayıtlı Hakkımızda alanı varsa silin..
+                        </p>
+                        <div class="table-responsive">
+                            <a asp-controller="AdminAbout" asp-action="CreateAbout" class="btn btn-outline-success">Yeni Hakkımızda Girişi</a>
+                            <table class="table mb-0">
+                                <thead>
+                                    <tr>
+                                        <th>#</th>
+                                        <th>Başlık</th>
+                                        <th>Açıklama</th>
+                                        <th>Resim</th>
+                                        <th>Sil</th>
+                                        <th>Güncelle</th>
+                                    </tr>
+                                </thead>
+                                @if (Model.Count > 0)
+                                {
+                                    <tbody>
+
+                                        @foreach (var item in Model)
+                                        {
+                                            count++;
+                                            <tr>
+                                                <th scope="row">@count</th>
+                                                <td>@item.Title</td>
+                                                <td>@item.Description</td>
+                                                <td>@item.ImageUrl</td>
+                                                <td><a asp-controller="AdminAbout" asp-action="Delete" asp-route-id="@item.DataProtect" class="btn btn-outline-danger">Sil</a></td>
+                                                <td><a asp-controller="AdminAbout" asp-action="Update" asp-route-id="@item.DataProtect" class="btn btn-outline-warning">Güncelle</a></td>
+                                            </tr>
+                                        }
+                                    </tbody>
+
+                                }
+                                else
+                                {
+                                    <tbody>
+                                        <tr><td colspan="6">Listelenecek Hakkımızda Verisi Yok</td> </tr>
+                                    </tbody>
+                                }
+                            </table>
+
+                        </div>
+
+                    </div>
+                    <!-- end card-body-->
+                </div>
+                <!-- end card -->
+
+            </div>
+        </div>
+    </div> <!-- container-fluid -->
+</div>
+
